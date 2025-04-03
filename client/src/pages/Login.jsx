@@ -30,11 +30,8 @@ export default function Login() {
         body: JSON.stringify(user),
       });
       if (response.ok) {
-        login(user);
         const data = await response.json();
-        login(user, data.token);
-        // storeTokenLS(data.token);
-        // navigate("/profile");
+        login(data.token);
       } else {
         alert("invalid credentials");
         console.log("invalid credentials");

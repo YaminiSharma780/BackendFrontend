@@ -1,26 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoginContext } from "../hooks/useLoginContext";
+import { contactAPI } from "../api";
 
 export default function Contact() {
   const { userData } = useLoginContext();
   console.log("userData at Contact Page : ", userData);
 
-  const [user, setUser] = useState({
-    username: userData.username,
-    email: userData.email,
+  const [contact, setContact] = useState({
+    username: "",
+    email: "",
     query: "",
   });
 
+  useEffect(() => {
+    setContact({
+      username: userData.username,
+      email: userData.email,
+      query: "",
+    });
+  }, [userData]);
+
   function handleInput(e) {
     const { name, value } = e.target;
-    setUser({
-      ...user,
+    setContact({
+      ...contact,
       [name]: value,
     });
   }
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(user);
+    console.log(contact);
+    try {
+      const response = await fetch(contactAPI, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact),
+      });
+      if (response.ok) {
+        alert("query sent, we will get back to you..");
+      } else {
+        console.log("something went wrong while creating your query");
+      }
+    } catch (error) {
+      console.log("error from frontend {contact}", error);
+    }
   }
 
   return (
@@ -31,7 +56,7 @@ export default function Contact() {
           <div className="form-content">
             <label htmlFor="username">Enter Username</label>
             <input
-              value={user.username}
+              value={contact.username}
               type="text"
               name="username"
               placeholder="username"
@@ -44,7 +69,7 @@ export default function Contact() {
           <div className="form-content">
             <label htmlFor="email">Enter Email</label>
             <input
-              value={user.email}
+              value={contact.email}
               type="text"
               name="email"
               placeholder="email"
