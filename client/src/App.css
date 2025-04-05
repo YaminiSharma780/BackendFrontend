@@ -1,22 +1,27 @@
 #root {
   margin: 0;
   padding: 0;
+  display: flex;
+  gap: 51px;
+  flex-direction: column;
 }
 
 html,
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 .header {
+  position: fixed;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   color: bisque;
   height: 50px;
-  /* width: 100vw; */
   width: 100%;
+  border: 1px solid bisque;
   background-color: rgb(55, 53, 53);
 }
 
@@ -99,22 +104,66 @@ button {
   background-color: bisque;
 }
 
-table, th, td {
+table,
+th,
+td {
   background-color: rgb(55, 53, 53);
   border: 1px solid black;
 }
-table{
+
+table {
   height: 200px;
   width: 400px;
 }
 
-.add-info{
+.add-info {
   background-color: bisque;
   color: black;
   cursor: pointer;
 }
-.update-info{
+
+.update-info {
   background-color: bisque;
   color: black;
   cursor: pointer;
+}
+
+.admin-panel {
+  display: flex;
+}
+
+.admin-header {
+  position: fixed;
+  color: bisque;
+  border: 1px solid bisque;
+  background-color: rgb(55, 53, 53);
+  width: 70px;
+  height: 91vh;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.admin-services-container{
+  margin-left: 71px;
+  width: 100%;
+  background-color: #242424
+}
+
+.admin-contacts-container{
+  margin-left: 71px;
+  width: 100%;
+  background-color: #242424
+}
+
+.admin-users-container{
+  margin-left: 71px;
+  width: 100%;
+  background-color: #242424
 }

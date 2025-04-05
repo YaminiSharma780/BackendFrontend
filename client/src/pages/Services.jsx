@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { servicesAPI } from "../api";
+import { allServicesAPI } from "../api";
 import { toast } from "react-toastify";
 
 export default function Services() {
@@ -8,7 +8,7 @@ export default function Services() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(servicesAPI);
+        const response = await fetch(allServicesAPI);
         const data = await response.json();
         console.log(data.response);
         setServices(data.response);
@@ -22,7 +22,7 @@ export default function Services() {
   }, []);
 
   return (
-    <div>
+    <div className="services-container">
       <table>
         <thead>
           <tr>

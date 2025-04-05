@@ -9,6 +9,10 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Header from "./components/Header";
 import Profile from "./pages/Profile";
+import Admin from "./components/Admin";
+import AdminContacts from "./pages/AdminContacts";
+import AdminServices from "./pages/AdminServices";
+import AdminUsers from "./pages/AdminUsers";
 
 function App() {
   return (
@@ -22,6 +26,11 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<Admin />}>
+          <Route path="contacts" element={<AdminContacts />} />
+          <Route path="services" element={<AdminServices />} />
+          <Route path="users" element={<AdminUsers />} />
+        </Route>
       </Routes>
     </Router>
   );
