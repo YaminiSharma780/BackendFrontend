@@ -1,5 +1,52 @@
+import { useEffect, useState } from "react";
+import { servicesAPI } from "../api";
+import { toast } from "react-toastify";
+
 export default function Services() {
+  const [services, setServices] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(servicesAPI);
+        const data = await response.json();
+        console.log(data.response);
+        setServices(data.response);
+        toast.success("Data fetched successfully");
+      } catch (error) {
+        toast.error("Failed to fetch");
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
-    <div>Services</div>
-  )
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Price</th>
+            <th>Provider</th>
+          </tr>
+        </thead>
+        <tbody>
+          {services === null ? (
+            <tr>
+              <td colSpan="3">No Services Found..</td>
+            </tr>
+          ) : (
+            services.map((s) => (
+              <tr key={s._id}>
+                <td>{s.service}</td>
+                <td>{s.price}</td>
+                <td>{s.provider}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
 }

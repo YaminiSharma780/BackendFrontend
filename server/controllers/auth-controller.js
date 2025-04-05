@@ -17,7 +17,7 @@ const RegisterController = async (req, res) => {
     console.log("User exists:", userExists);
 
     if (userExists) {
-      return res.status(400).json({ msg: "email already exists" });
+      return res.status(400).json({ msg: "Email already exists" });
     }
 
     const newUser = await User.create({
@@ -46,7 +46,7 @@ const LoginController = async (req, res) => {
     console.log("User exists:", userExists);
 
     if (!userExists) {
-      return res.status(400).json({ msg: "please register yourself" });
+      return res.status(400).json({ msg: "Please register yourself" });
     }
 
     const user = await userExists.comparePassword(password);

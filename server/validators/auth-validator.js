@@ -3,56 +3,56 @@ const { z } = require("zod");
 const registerSchema = z.object({
   username: z
     .string({
-      required_error: "username is required",
+      required_error: "Username is required",
     })
     .trim()
     .min(3, {
-      message: "name must be at least 3 characters",
+      message: "Name must be at least 3 characters",
     })
     .max(255, {
-      message: "name must not be more than 255 characters",
+      message: "Name must not be more than 255 characters",
     }),
   email: z
     .string({
-      required_error: "email is required",
+      required_error: "Email is required",
     })
     .email({
-      message: "invalid email format",
+      message: "Invalid email format",
     }),
   password: z
     .string({
-      required_error: "password is required",
+      required_error: "Password is required",
     })
     .min(6, {
-      message: "password must be at least 6 characters",
+      message: "Password must be at least 6 characters",
     })
     .max(255, {
-      message: "password must not be more than 255 characters",
+      message: "Password must not be more than 255 characters",
     }),
   phone: z
     .string({
-      required_error: "phone number is required",
+      required_error: "Phone number is required",
     })
-    .min(10, { message: "phone must have at least 10 digits" }),
+    .min(10, { message: "Phone must have at least 10 digits" }),
 });
 
 const loginSchema = z.object({
   email: z
     .string({
-      required_error: "email is required",
+      required_error: "Email is required",
     })
     .email({
-      message: "invalid email format",
+      message: "Invalid email format",
     }),
   password: z
     .string({
-      required_error: "password is required",
+      required_error: "Password is required",
     })
     .min(6, {
-      message: "password must be at least 6 characters",
+      message: "Password must be at least 6 characters",
     })
     .max(255, {
-      message: "password must not be more than 255 characters",
+      message: "Password must not be more than 255 characters",
     }),
 });
 

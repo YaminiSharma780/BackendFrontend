@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLoginContext } from "../hooks/useLoginContext";
 import { useNavigate } from "react-router-dom";
 import { loginAPI } from "../api";
+import { toast } from "react-toastify";
 
 export default function Login() {
   let navigate = useNavigate();
@@ -29,14 +30,23 @@ export default function Login() {
         },
         body: JSON.stringify(user),
       });
+      const data = await response.json();
+      console.log(data.message, " + ", data.extraDetails);
       if (response.ok) {
-        const data = await response.json();
+        console.log("check 1 token : ",data);
         login(data.token);
+        toast.success("Successfully logged In");
+        navigate("/profile");
       } else {
-        alert("invalid credentials");
-        console.log("invalid credentials");
+        if (data.extraDetails) {
+          toast.error(data.message);
+          console.log(data.extraDetails);
+        } else {
+          toast.error("Invalid Credentials");
+        }
       }
     } catch (error) {
+      toast.error("Invalid Credentials");
       console.log("error from frontend {login}", error);
     }
   };

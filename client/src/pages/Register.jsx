@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLoginContext } from "../hooks/useLoginContext";
 import { useNavigate } from "react-router-dom";
 import { registerAPI } from "../api";
+import { toast } from "react-toastify";
 
 export default function Register() {
   let navigate = useNavigate();
@@ -32,13 +33,18 @@ export default function Register() {
         },
         body: JSON.stringify(user),
       });
-      console.log(response);
+      const data = await response.json();
+      console.log(data.message, " + ", data.extraDetails);
       if (response.ok) {
-        const data = await response.json();
-        storeTokenLS(data.token);
+        // storeTokenLS(data.token);
+        toast.success("Successfully Registered");
         navigate("/login");
+      } else {
+        toast.error(data.extraDetails);
+        console.log(data.extraDetails);
       }
     } catch (error) {
+      toast.error("Registration Unsuccessful");
       console.log("error from frontend {registration}", error);
     }
   };

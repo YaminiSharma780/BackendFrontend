@@ -6,19 +6,6 @@ export default function Profile() {
 
   console.log("userData at Profile Page : ", userData);
 
-  // const [userDataAvailable, setUserDataAvailable] = useState(true);
-
-  // const [profileData, setProfileData] = useState({ userData });
-
-  // if (userData && userDataAvailable) {
-  //   setProfileData({
-  //     username: userData.username,
-  //     phone: userData.phone,
-  //     email: userData.email,
-  //   });
-  //   setUserDataAvailable(false);
-  // }
-
   return (
     <div>
       <table>
