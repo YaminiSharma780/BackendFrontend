@@ -4,6 +4,14 @@ const AdminController = require("../controllers/admin-controller");
 
 const router = express.Router();
 
-router.get("/admin", AdminController);
+router.get("/users", AdminController.GetAllUsersAdminController);
+
+router.get("/contacts", AdminController.GetAllContactsAdminController)
+
+router.get('/services', AdminController.GetAllServicesAdminController);
+
+router.post('/login', AdminController.AdminLoginController);
+
+router.post('/register', AdminController.AdminRegisterController);
 
 module.exports = router;

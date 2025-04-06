@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { allUsersAPI } from "../api";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState(null);
@@ -7,13 +7,11 @@ export default function AdminUsers() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch();
+        const response = await fetch(allUsersAPI);
         const data = await response.json();
         console.log(data.response);
         setUsers(data.response);
-        toast.success("Data fetched successfully");
       } catch (error) {
-        toast.error("Failed to fetch");
         console.log(error);
       }
     }
@@ -38,17 +36,14 @@ export default function AdminUsers() {
                 <td colSpan="4">No Users Found..</td>
               </tr>
             ) : (
-              services.map((u) => (
+              users.map((u) => (
                 <tr key={u._id}>
                   <td>{u.username}</td>
                   <td>{u.email}</td>
                   <td>{u.phone}</td>
+                  <td>{u.isAdmin === true ? "Yes" : "No"}</td>
                   <td>
-                    <input type="checkbox" />
-                    {u.isAdmin}
-                  </td>
-                  <td>
-                    <button>Send Mail</button>
+                    <button>Mail</button>
                     <button>Delete</button>
                   </td>
                 </tr>

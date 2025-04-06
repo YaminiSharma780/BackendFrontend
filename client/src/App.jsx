@@ -13,6 +13,8 @@ import Admin from "./components/Admin";
 import AdminContacts from "./pages/AdminContacts";
 import AdminServices from "./pages/AdminServices";
 import AdminUsers from "./pages/AdminUsers";
+import AdminLogin from "./pages/AdminLogin";
+import AdminRegister from "./pages/AdminRegister";
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <Route path="contacts" element={<AdminContacts />} />
           <Route path="services" element={<AdminServices />} />
           <Route path="users" element={<AdminUsers />} />
+          <Route path="login" element={<AdminLogin />} />
+          <Route path="register" element={<AdminRegister />} />
         </Route>
       </Routes>
     </Router>

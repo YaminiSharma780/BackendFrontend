@@ -8,6 +8,8 @@ export default function Admin() {
           <Link to="/admin/services">Services</Link>
           <Link to="/admin/contacts">Contacts</Link>
           <Link to="/admin/users">Users</Link>
+          <Link to="/admin/register">Register</Link>
+          <Link to="/admin/login">Login</Link>
         </div>
       </header>
       <Outlet />

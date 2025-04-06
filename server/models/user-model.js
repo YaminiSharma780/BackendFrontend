@@ -28,19 +28,22 @@ const userSchema = new mongoose.Schema({
 userSchema.pre("save", async function (next) {
   const user = this;
   if (!user.isModified("password")) {
-    next();
+    return next();
   }
   try {
     const hashSalt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(user.password, hashSalt);
     user.password = hashPassword;
+    next();
   } catch (error) {
     next(error);
   }
 });
 
 userSchema.methods.comparePassword = async function (password) {
-  return bcrypt.compare(password, this.password);
+  console.log("Original Password : ", password, this.password);
+  const result = await bcrypt.compare(password, this.password);
+  return result;
 };
 
 userSchema.methods.generateToken = async function () {

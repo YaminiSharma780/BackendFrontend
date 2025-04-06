@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { allContactsAPI } from "../api";
 
 export default function AdminContacts() {
   const [contacts, setContacts] = useState(null);
@@ -7,13 +7,11 @@ export default function AdminContacts() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch();
+        const response = await fetch(allContactsAPI);
         const data = await response.json();
         console.log(data.response);
         setContacts(data.response);
-        toast.success("Data fetched successfully");
       } catch (error) {
-        toast.error("Failed to fetch");
         console.log(error);
       }
     }
@@ -37,7 +35,7 @@ export default function AdminContacts() {
                 <td colSpan="3">No Contacts Found..</td>
               </tr>
             ) : (
-              services.map((c) => (
+              contacts.map((c) => (
                 <tr key={c._id}>
                   <td>{c.username}</td>
                   <td>{c.email}</td>

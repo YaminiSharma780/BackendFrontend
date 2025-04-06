@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { allServicesAPI } from "../api";
-import { toast } from "react-toastify";
 
 export default function Services() {
   const [services, setServices] = useState(null);
@@ -12,9 +11,7 @@ export default function Services() {
         const data = await response.json();
         console.log(data.response);
         setServices(data.response);
-        toast.success("Data fetched successfully");
       } catch (error) {
-        toast.error("Failed to fetch");
         console.log(error);
       }
     }
