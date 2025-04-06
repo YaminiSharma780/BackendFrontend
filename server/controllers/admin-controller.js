@@ -40,6 +40,28 @@ const GetAllServicesAdminController = async (req, res) => {
   }
 };
 
+const DeleteServiceAdminController = async (req, res) => {
+  try {
+    // const { id } = req.params.id;
+    console.log("check 1", req.params.id);
+    const response = await Service.findOne({ _id: req.params.id });
+    console.log("check 2", response);
+    if (!response) {
+      res.status(404).json({ msg: "No service found" });
+    } else {
+      const result = await Service.deleteOne({ _id: req.params.id });
+      console.log("check 3", result);
+      if (result.deletedCount > 0) {
+        res.status(200).json({ msg: "Successfully deleted service" });
+      } else {
+        res.status(404).json({ msg: "Could not delete service" });
+      }
+    }
+  } catch (error) {
+    console.log(`services : ${error}`);
+  }
+};
+
 const AdminRegisterController = async (req, res) => {
   try {
     console.log("Request body:", req.body);
@@ -110,4 +132,5 @@ module.exports = {
   GetAllServicesAdminController,
   AdminLoginController,
   AdminRegisterController,
+  DeleteServiceAdminController,
 };

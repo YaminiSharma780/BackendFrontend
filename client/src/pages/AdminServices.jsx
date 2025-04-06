@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { allServicesAPI } from "../api";
+import { allServicesAPI, deleteServiceAPI } from "../api";
 
 export default function AdminServices() {
   const [services, setServices] = useState(null);
@@ -17,6 +17,27 @@ export default function AdminServices() {
     }
     fetchData();
   }, []);
+
+  function handleEdit(id) {
+    console.log("to be edited : ", id);
+  }
+  async function handleDelete(id) {
+    console.log("to be deleted : ", id);
+
+    try {
+      const response = await fetch(`${deleteServiceAPI}/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        const data = response.json();
+        console.log("AdminService : ", data, response);
+        setServices(services.filter((s) => s._id !== id));
+      }
+    } catch (error) {
+      console.log("Tried deleting service, but failed ", error);
+    }
+  }
+
   return (
     <div className="admin-services-container">
       <div className="services-container">
@@ -41,8 +62,8 @@ export default function AdminServices() {
                   <td>{s.price}</td>
                   <td>{s.provider}</td>
                   <td>
-                    <button>Edit</button>
-                    <button>Delete</button>
+                    <button onClick={() => handleEdit(s._id)}>Edit</button>
+                    <button onClick={() => handleDelete(s._id)}>Delete</button>
                   </td>
                 </tr>
               ))

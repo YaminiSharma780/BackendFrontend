@@ -6,12 +6,14 @@ const router = express.Router();
 
 router.get("/users", AdminController.GetAllUsersAdminController);
 
-router.get("/contacts", AdminController.GetAllContactsAdminController)
+router.get("/contacts", AdminController.GetAllContactsAdminController);
 
-router.get('/services', AdminController.GetAllServicesAdminController);
+router.get("/services", AdminController.GetAllServicesAdminController);
 
-router.post('/login', AdminController.AdminLoginController);
+router.delete("/service/:id", AdminController.DeleteServiceAdminController);
 
-router.post('/register', AdminController.AdminRegisterController);
+router.post("/login", AdminController.AdminLoginController);
+
+router.post("/register", AdminController.AdminRegisterController);
 
 module.exports = router;
