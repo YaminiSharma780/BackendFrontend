@@ -5,6 +5,8 @@ export const LoginContext = createContext(null);
 
 export const MyLoginContext = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -33,6 +35,9 @@ export const MyLoginContext = ({ children }) => {
           isAdmin: data.userData.isAdmin,
         });
         setLoggedIn(true);
+        if (data.userData.isAdmin === true) {
+          setAdminLoggedIn(true);
+        }
       } else {
         console.error("Failed to fetch user data:", response.statusText);
         setLoggedIn(false);
@@ -80,7 +85,15 @@ export const MyLoginContext = ({ children }) => {
 
   return (
     <LoginContext.Provider
-      value={{ loggedIn, userData, token, login, logout, storeTokenLS }}
+      value={{
+        loggedIn,
+        adminLoggedIn,
+        userData,
+        token,
+        login,
+        logout,
+        storeTokenLS,
+      }}
     >
       {children}
     </LoginContext.Provider>

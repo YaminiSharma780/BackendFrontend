@@ -62,7 +62,16 @@ export default function AdminContacts() {
                   <td>{c.email}</td>
                   <td>{c.query}</td>
                   <td>
-                    <button>Reply</button>
+                    <button
+                      onClick={() => {
+                        window.open(
+                          `https://mail.google.com/mail/?view=cm&fs=1&to=${c.email}`,
+                          "_blank"
+                        );
+                      }}
+                    >
+                      Mail
+                    </button>
                     <button onClick={() => handleDelete(c._id)}>Delete</button>
                   </td>
                 </tr>

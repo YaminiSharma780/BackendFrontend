@@ -15,8 +15,14 @@ import AdminServices from "./pages/AdminServices";
 import AdminUsers from "./pages/AdminUsers";
 import AdminLogin from "./pages/AdminLogin";
 import AdminRegister from "./pages/AdminRegister";
+import AdminProfile from "./pages/AdminProfile";
+import { useLoginContext } from "./hooks/useLoginContext";
+import ProtectedRoute from "./components/ProtectedRoutes";
+import NotLoggedIn from "./pages/NotLoggedIn";
 
 function App() {
+  const { loggedIn, adminLoggedIn } = useLoginContext();
+
   return (
     <Router>
       <Header />
@@ -28,13 +34,29 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/admin" element={<Admin />}>
-          <Route path="contacts" element={<AdminContacts />} />
-          <Route path="services" element={<AdminServices />} />
-          <Route path="users" element={<AdminUsers />} />
-          <Route path="login" element={<AdminLogin />} />
-          <Route path="register" element={<AdminRegister />} />
+        <Route
+          path="/admin"
+          element={loggedIn && adminLoggedIn ? <Admin /> : <NotLoggedIn />}
+        >
+          <Route
+            path="contacts"
+            element={<ProtectedRoute element={<AdminContacts />} />}
+          />
+          <Route
+            path="services"
+            element={<ProtectedRoute element={<AdminServices />} />}
+          />
+          <Route
+            path="users"
+            element={<ProtectedRoute element={<AdminUsers />} />}
+          />
+          <Route
+            path="profile"
+            element={<ProtectedRoute element={<AdminProfile />} />}
+          />
         </Route>
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/register" element={<AdminRegister />} />
       </Routes>
     </Router>
   );

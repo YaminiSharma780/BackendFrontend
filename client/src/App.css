@@ -178,3 +178,7 @@ table {
 .checkbox:checked {
   background-color: rgb(55, 53, 53);
 }
+
+.admin-profile{
+  margin-left: 71px;
+}

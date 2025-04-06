@@ -64,7 +64,16 @@ export default function AdminUsers() {
                   <td>{u.phone}</td>
                   <td>{u.isAdmin === true ? "Yes" : "No"}</td>
                   <td>
-                    <button>Mail</button>
+                    <button
+                      onClick={() => {
+                        window.open(
+                          `https://mail.google.com/mail/?view=cm&fs=1&to=${u.email}`,
+                          "_blank"
+                        );
+                      }}
+                    >
+                      Mail
+                    </button>
                     <button onClick={() => handleDelete(u._id)}>Delete</button>
                   </td>
                 </tr>
