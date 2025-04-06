@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { allUsersAPI } from "../api";
+import { allUsersAPI, deleteUserAPI } from "../api";
 
 export default function AdminUsers() {
   const [users, setUsers] = useState(null);
@@ -17,6 +17,27 @@ export default function AdminUsers() {
     }
     fetchData();
   }, []);
+
+  function handleEdit(id) {
+    console.log("to be edited : ", id);
+  }
+  async function handleDelete(id) {
+    console.log("to be deleted : ", id);
+
+    try {
+      const response = await fetch(`${deleteUserAPI}/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        const data = response.json();
+        console.log("AdminUsers : ", data, response);
+        setUsers(users.filter((s) => s._id !== id));
+      }
+    } catch (error) {
+      console.log("Tried deleting user, but failed ", error);
+    }
+  }
+
   return (
     <div className="admin-users-container">
       <div className="users-container">
@@ -44,7 +65,7 @@ export default function AdminUsers() {
                   <td>{u.isAdmin === true ? "Yes" : "No"}</td>
                   <td>
                     <button>Mail</button>
-                    <button>Delete</button>
+                    <button onClick={() => handleDelete(u._id)}>Delete</button>
                   </td>
                 </tr>
               ))

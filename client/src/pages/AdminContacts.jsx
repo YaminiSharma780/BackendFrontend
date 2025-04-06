@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { allContactsAPI } from "../api";
+import { allContactsAPI, deleteContactAPI } from "../api";
 
 export default function AdminContacts() {
   const [contacts, setContacts] = useState(null);
@@ -17,6 +17,27 @@ export default function AdminContacts() {
     }
     fetchData();
   }, []);
+
+  function handleEdit(id) {
+    console.log("to be edited : ", id);
+  }
+  async function handleDelete(id) {
+    console.log("to be deleted : ", id);
+
+    try {
+      const response = await fetch(`${deleteContactAPI}/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        const data = response.json();
+        console.log("AdminContacts : ", data, response);
+        setContacts(contacts.filter((s) => s._id !== id));
+      }
+    } catch (error) {
+      console.log("Tried deleting contact, but failed ", error);
+    }
+  }
+
   return (
     <div className="admin-contacts-container">
       <div className="contacts-container">
@@ -42,7 +63,7 @@ export default function AdminContacts() {
                   <td>{c.query}</td>
                   <td>
                     <button>Reply</button>
-                    <button>Delete</button>
+                    <button onClick={() => handleDelete(c._id)}>Delete</button>
                   </td>
                 </tr>
               ))

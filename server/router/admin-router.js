@@ -6,7 +6,11 @@ const router = express.Router();
 
 router.get("/users", AdminController.GetAllUsersAdminController);
 
+router.delete("/user/:id", AdminController.DeleteUserAdminController);
+
 router.get("/contacts", AdminController.GetAllContactsAdminController);
+
+router.delete("/contact/:id", AdminController.DeleteContactAdminController);
 
 router.get("/services", AdminController.GetAllServicesAdminController);
 

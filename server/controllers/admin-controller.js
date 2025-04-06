@@ -14,6 +14,29 @@ const GetAllUsersAdminController = async (req, res) => {
     console.log(`users : ${error}`);
   }
 };
+
+const DeleteUserAdminController = async (req, res) => {
+  try {
+    // const { id } = req.params.id;
+    console.log("check 1", req.params.id);
+    const response = await User.findOne({ _id: req.params.id });
+    console.log("check 2", response);
+    if (!response) {
+      res.status(404).json({ msg: "No user found" });
+    } else {
+      const result = await User.deleteOne({ _id: req.params.id });
+      console.log("check 3", result);
+      if (result.deletedCount > 0) {
+        res.status(200).json({ msg: "Successfully deleted user" });
+      } else {
+        res.status(404).json({ msg: "Could not delete user" });
+      }
+    }
+  } catch (error) {
+    console.log(`services : ${error}`);
+  }
+};
+
 const GetAllContactsAdminController = async (req, res) => {
   try {
     const response = await Contact.find();
@@ -24,6 +47,28 @@ const GetAllContactsAdminController = async (req, res) => {
     res.status(200).json({ response });
   } catch (error) {
     console.log(`contacts : ${error}`);
+  }
+};
+
+const DeleteContactAdminController = async (req, res) => {
+  try {
+    // const { id } = req.params.id;
+    console.log("check 1", req.params.id);
+    const response = await Contact.findOne({ _id: req.params.id });
+    console.log("check 2", response);
+    if (!response) {
+      res.status(404).json({ msg: "No count found" });
+    } else {
+      const result = await Contact.deleteOne({ _id: req.params.id });
+      console.log("check 3", result);
+      if (result.deletedCount > 0) {
+        res.status(200).json({ msg: "Successfully deleted count" });
+      } else {
+        res.status(404).json({ msg: "Could not delete count" });
+      }
+    }
+  } catch (error) {
+    console.log(`services : ${error}`);
   }
 };
 
@@ -133,4 +178,6 @@ module.exports = {
   AdminLoginController,
   AdminRegisterController,
   DeleteServiceAdminController,
+  DeleteUserAdminController,
+  DeleteContactAdminController
 };
